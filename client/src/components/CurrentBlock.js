@@ -8,8 +8,7 @@ import {
   CardHeader,
 } from "@material-ui/core";
 const { ethers } = require("ethers");
-let api_url =
-  "https://eth-mainnet.alchemyapi.io/v2/azrBGgRJFMuKDluAUexjMYs-JtIoMJTX";
+let api_url = process.env.ALCHEMY_URL;
 const useStyles = makeStyles({
   card: {
     maxWidth: 600,
