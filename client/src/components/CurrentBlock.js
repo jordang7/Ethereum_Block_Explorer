@@ -8,7 +8,9 @@ import {
   CardHeader,
 } from "@material-ui/core";
 const { ethers } = require("ethers");
-let api_url = process.env.ALCHEMY_URL;
+
+let api_url = process.env.REACT_APP_ALCHEMY_URL;
+
 const useStyles = makeStyles({
   card: {
     maxWidth: 600,
@@ -37,30 +39,35 @@ const useStyles = makeStyles({
     fontSize: 12,
   },
 });
-const CurrentBlock = (props) => {
+const CurrentBlock = () => {
   const [blockData, setBlockData] = useState([]);
   const [blockNum, setBlockNumber] = useState([]);
   const [loading, setLoading] = useState(true);
   const classes = useStyles();
-  useEffect(() => {
-    console.log("useEffect fired");
-    async function fetchData() {
-      try {
-        const provider = new ethers.providers.JsonRpcProvider(api_url);
+  const getCurrentBlock = async () => {
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(api_url);
+      const blockNumber = await provider.getBlockNumber();
 
-        const blockNumber = await provider.getBlockNumber();
-        setBlockNumber(blockNumber);
-        const block = await provider.getBlockWithTransactions(blockNumber);
-        console.log(block);
-        setBlockData(block);
-        setLoading(false);
-      } catch (e) {
-        console.log(e);
-      }
+      setBlockNumber(blockNumber);
+
+      const block = await provider.getBlockWithTransactions(blockNumber);
+
+      setBlockData(block);
+      setLoading(false);
+    } catch (e) {
+      console.log(e);
     }
+  };
+  useEffect(() => {
+    getCurrentBlock();
+    const interval = setInterval(() => {
+      getCurrentBlock();
+    }, 10000);
 
-    fetchData();
+    return () => clearInterval(interval);
   }, []);
+
   if (loading) {
     return (
       <div>
@@ -69,7 +76,6 @@ const CurrentBlock = (props) => {
     );
   } else {
     if (blockData) {
-      console.log(blockData.transactions.length);
       return (
         <Card className={classes.card} variant="outlined">
           <CardHeader
