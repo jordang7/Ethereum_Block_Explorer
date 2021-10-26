@@ -8,7 +8,7 @@ function HomePage() {
   const [network, setNetwork] = useState("MAINNET");
   const [loading, setLoading] = useState(true);
 
-  const getCurrentBlock = async () => {
+  const getLatestBlocks = async () => {
     try {
       let string = "REACT_APP_" + network + "_URL";
       //console.log(string);
@@ -32,9 +32,9 @@ function HomePage() {
 
   useEffect(() => {
     setLoading(true);
-    getCurrentBlock();
+    getLatestBlocks();
     const interval = setInterval(() => {
-      getCurrentBlock();
+      getLatestBlocks();
     }, 10000);
 
     return () => clearInterval(interval);
