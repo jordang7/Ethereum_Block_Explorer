@@ -6,13 +6,14 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
+
 function App() {
   return (
     <div>
       <Router>
         <Navbar bg="light" expand="lg">
           <Container>
-            <Navbar.Brand href="/Home">Ethereum Block Explorer</Navbar.Brand>
+            <Navbar.Brand href="/">Ethereum Block Explorer</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
