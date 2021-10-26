@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Dropdown from "react-bootstrap/Dropdown";
+import { Link } from "react-router-dom";
 const { ethers } = require("ethers");
 
 function HomePage() {
@@ -11,10 +12,8 @@ function HomePage() {
   const getLatestBlocks = async () => {
     try {
       let string = "REACT_APP_" + network + "_URL";
-      //console.log(string);
       let api_url = process.env[string];
-      // console.log(process.env);
-      console.log(api_url);
+
       let blockArray = [];
       const provider = new ethers.providers.JsonRpcProvider(api_url);
       const blockNumber = await provider.getBlockNumber();
@@ -74,6 +73,7 @@ function HomePage() {
             tdStyle={{ whiteSpace: "normal", wordWrap: "break-word" }}
           >
             <tr>
+              <th>Number</th>
               <th>Hash</th>
               <th>Nonce</th>
               <th>Gas Used</th>
@@ -85,6 +85,11 @@ function HomePage() {
             {blocksData.map((block) => {
               return (
                 <tr>
+                  <td style={{ fontSize: 12 }}>
+                    <Link to={`/blockDetail/${network}/${block.number}`}>
+                      {block.number}
+                    </Link>
+                  </td>
                   <td style={{ fontSize: 12 }}>{block.hash}</td>
                   <td style={{ fontSize: 12 }}>{block.nonce}</td>
                   <td style={{ fontSize: 12 }}>{Number(block.gasUsed)}</td>
