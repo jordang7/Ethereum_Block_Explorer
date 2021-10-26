@@ -44,10 +44,10 @@ function HomePage() {
   } else {
     return (
       <div>
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
           <h1 text-align="center"> Latest 10 blocks on {network}</h1>
         </div>
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
           <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               {network}

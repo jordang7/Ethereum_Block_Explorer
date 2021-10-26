@@ -1,7 +1,8 @@
-import logo from "./logo.svg";
 import "./App.css";
 import BlockDetail from "./components/BlockDetail";
 import HomePage from "./components/HomePage";
+import Accounts from "./components/Accounts";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,7 +22,9 @@ function App() {
             <Navbar.Brand href="/">Ethereum Block Explorer</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto"></Nav>
+              <Nav className="me-auto">
+                <Nav.Link href="/account">Lookup Balance</Nav.Link>
+              </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
@@ -33,6 +36,7 @@ function App() {
             path="/blockDetail/:network/:blockNum"
             component={BlockDetail}
           />
+          <Route exact path="/account" component={Accounts} />
         </Switch>
       </Router>
     </div>
